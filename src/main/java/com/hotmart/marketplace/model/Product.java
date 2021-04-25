@@ -1,9 +1,8 @@
 package com.hotmart.marketplace.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Value;
-import lombok.extern.jackson.Jacksonized;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,10 +21,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Value
-@Getter
 @Builder
-@Jacksonized
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "MARKETPLACE_PRODUCT")
 public class Product implements Serializable {

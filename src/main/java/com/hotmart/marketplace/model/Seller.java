@@ -1,9 +1,8 @@
 package com.hotmart.marketplace.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Value;
-import lombok.extern.jackson.Jacksonized;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +14,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-@Value
-@Getter
 @Builder
-@Jacksonized
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "MARKETPLACE_SELLER")
 public class Seller implements Serializable {
