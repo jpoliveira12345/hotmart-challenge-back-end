@@ -1,1 +1,13 @@
-
+spring:
+  datasource:
+    username: root
+    password: ':A2y,ZGjE3YrN6c%'
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/marketplace
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+  banner:
+    location: "classpath:custom-banner.txt"
+  liquibase:
+    enabled: false
