@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +26,8 @@ import java.time.LocalDate;
 
 @Data
 @Builder
+@Audited
+@AuditTable(value = "PRODUCT_AUDIT")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

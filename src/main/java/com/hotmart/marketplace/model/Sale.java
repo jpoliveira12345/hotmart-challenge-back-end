@@ -3,6 +3,8 @@ package com.hotmart.marketplace.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,8 @@ import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 @Builder
+@Audited
+@AuditTable(value = "PRODUCT_AUDIT")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

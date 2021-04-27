@@ -29,7 +29,8 @@ Sua tarefa consiste em:
 - Criar um Crud(create, read, update, delete) de produtos.
 - Criar uma API de produtos e disponibilizar as operações de crud (list, find, delete, update, insert).
 - Criar um serviço para buscar os produtos ordenados pelo ranqueamento pelo nome e pela categoria.
-    - O output do serviço deve conter as informações `dataAtual` e `termoPesquisado`, bem como a lista de produtos que atendem à pesquisa. Os atributos de cada produto retornado são { `identificador`, `nome`, `descrição`, `data de criação`, `score`}
+    - O output do serviço deve conter as informações `dataAtual` e `termoPesquisado`, bem como a lista de produtos que atendem à pesquisa. 
+      Os atributos de cada produto retornado são { `identificador`, `nome`, `descrição`, `data de criação`, `score`}
 - Todos os serviços devem ser auditados.
 
 ## Observações:
