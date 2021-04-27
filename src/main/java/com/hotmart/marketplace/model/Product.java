@@ -2,6 +2,7 @@ package com.hotmart.marketplace.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -21,6 +22,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
