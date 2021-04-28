@@ -1,0 +1,2827 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="jpveira (generated)" id="1619608244717-1">
+        <createTable tableName="marketplace_category">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-2">
+        <createTable tableName="marketplace_product">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created_at" type="date"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="score" type="DECIMAL(19, 2)"/>
+            <column name="id_category" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-3">
+        <createTable tableName="marketplace_purchaser">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-4">
+        <createTable tableName="marketplace_sale">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="score" type="INT"/>
+            <column name="id_product" type="BIGINT"/>
+            <column name="id_purchaser" type="BIGINT"/>
+            <column name="id_seller" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-5">
+        <createTable tableName="marketplace_seller">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-6">
+        <createTable tableName="product_audit">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="rev" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="revtype" type="TINYINT(3)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="created_at" type="date"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="score" type="DECIMAL(19, 2)"/>
+            <column name="id_category" type="BIGINT"/>
+            <column name="id_product" type="BIGINT"/>
+            <column name="id_purchaser" type="BIGINT"/>
+            <column name="id_seller" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-7">
+        <createTable tableName="revinfo">
+            <column autoIncrement="true" name="rev" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="revtstmp" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-13">
+        <createIndex indexName="FK4tbqxvexjy6g6pybwhmok5jty" tableName="product_audit">
+            <column name="rev"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-14">
+        <createIndex indexName="FK816h44qmvq8r1bslw7tkktos3" tableName="marketplace_sale">
+            <column name="id_seller"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-15">
+        <createIndex indexName="FKlnsqjup0s8w2c947j4i3ten7r" tableName="marketplace_sale">
+            <column name="id_purchaser"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-16">
+        <createIndex indexName="FKmm452hs0leioevkbgsbo6281o" tableName="marketplace_product">
+            <column name="id_category"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-17">
+        <createIndex indexName="FKn98kbxwdducsst0xucmlvws4m" tableName="marketplace_sale">
+            <column name="id_product"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-18">
+        <addForeignKeyConstraint baseColumnNames="rev" baseTableName="product_audit" constraintName="FK4tbqxvexjy6g6pybwhmok5jty" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="rev" referencedTableName="revinfo" validate="true"/>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-19">
+        <addForeignKeyConstraint baseColumnNames="id_seller" baseTableName="marketplace_sale" constraintName="FK816h44qmvq8r1bslw7tkktos3" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="marketplace_seller" validate="true"/>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-20">
+        <addForeignKeyConstraint baseColumnNames="id_purchaser" baseTableName="marketplace_sale" constraintName="FKlnsqjup0s8w2c947j4i3ten7r" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="marketplace_purchaser" validate="true"/>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-21">
+        <addForeignKeyConstraint baseColumnNames="id_category" baseTableName="marketplace_product" constraintName="FKmm452hs0leioevkbgsbo6281o" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="marketplace_category" validate="true"/>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-22">
+        <addForeignKeyConstraint baseColumnNames="id_product" baseTableName="marketplace_sale" constraintName="FKn98kbxwdducsst0xucmlvws4m" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="marketplace_product" validate="true"/>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-8">
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="laboriosam"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="doloremque"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="sed"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="distinctio"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="ea"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="6"/>
+            <column name="name" value="voluptates"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="7"/>
+            <column name="name" value="sed"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="8"/>
+            <column name="name" value="ratione"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="9"/>
+            <column name="name" value="maxime"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="10"/>
+            <column name="name" value="autem"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="11"/>
+            <column name="name" value="beatae"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="12"/>
+            <column name="name" value="pariatur"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="13"/>
+            <column name="name" value="ratione"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="14"/>
+            <column name="name" value="reprehenderit"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="15"/>
+            <column name="name" value="autem"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="16"/>
+            <column name="name" value="recusandae"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="17"/>
+            <column name="name" value="delectus"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="18"/>
+            <column name="name" value="sed"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="19"/>
+            <column name="name" value="non"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="20"/>
+            <column name="name" value="ut"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="21"/>
+            <column name="name" value="vel"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="22"/>
+            <column name="name" value="commodi"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="23"/>
+            <column name="name" value="modi"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="24"/>
+            <column name="name" value="voluptatem"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="25"/>
+            <column name="name" value="enim"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="26"/>
+            <column name="name" value="qui"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="27"/>
+            <column name="name" value="hic"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="28"/>
+            <column name="name" value="consectetur"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="29"/>
+            <column name="name" value="ipsum"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="30"/>
+            <column name="name" value="eius"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="31"/>
+            <column name="name" value="voluptatum"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="32"/>
+            <column name="name" value="quaerat"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="33"/>
+            <column name="name" value="et"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="34"/>
+            <column name="name" value="possimus"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="35"/>
+            <column name="name" value="voluptatum"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="36"/>
+            <column name="name" value="placeat"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="37"/>
+            <column name="name" value="in"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="38"/>
+            <column name="name" value="odio"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="39"/>
+            <column name="name" value="fugit"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="40"/>
+            <column name="name" value="ut"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="41"/>
+            <column name="name" value="ipsum"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="42"/>
+            <column name="name" value="laboriosam"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="43"/>
+            <column name="name" value="tenetur"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="44"/>
+            <column name="name" value="ipsum"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="45"/>
+            <column name="name" value="quidem"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="46"/>
+            <column name="name" value="repellat"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="47"/>
+            <column name="name" value="nesciunt"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="48"/>
+            <column name="name" value="assumenda"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="49"/>
+            <column name="name" value="quasi"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="50"/>
+            <column name="name" value="qui"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="51"/>
+            <column name="name" value="aut"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="52"/>
+            <column name="name" value="earum"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="53"/>
+            <column name="name" value="quia"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="54"/>
+            <column name="name" value="et"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="55"/>
+            <column name="name" value="vel"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="56"/>
+            <column name="name" value="dolorem"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="57"/>
+            <column name="name" value="eos"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="58"/>
+            <column name="name" value="sed"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="59"/>
+            <column name="name" value="veritatis"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="60"/>
+            <column name="name" value="itaque"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="61"/>
+            <column name="name" value="est"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="62"/>
+            <column name="name" value="sit"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="63"/>
+            <column name="name" value="omnis"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="64"/>
+            <column name="name" value="ducimus"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="65"/>
+            <column name="name" value="repellat"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="66"/>
+            <column name="name" value="non"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="67"/>
+            <column name="name" value="consequatur"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="68"/>
+            <column name="name" value="eius"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="69"/>
+            <column name="name" value="rem"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="70"/>
+            <column name="name" value="rem"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="71"/>
+            <column name="name" value="deserunt"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="72"/>
+            <column name="name" value="sed"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="73"/>
+            <column name="name" value="eos"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="74"/>
+            <column name="name" value="tempora"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="75"/>
+            <column name="name" value="suscipit"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="76"/>
+            <column name="name" value="eos"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="77"/>
+            <column name="name" value="consequatur"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="78"/>
+            <column name="name" value="ut"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="79"/>
+            <column name="name" value="voluptatem"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="80"/>
+            <column name="name" value="rerum"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="81"/>
+            <column name="name" value="tempora"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="82"/>
+            <column name="name" value="enim"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="83"/>
+            <column name="name" value="explicabo"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="84"/>
+            <column name="name" value="est"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="85"/>
+            <column name="name" value="earum"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="86"/>
+            <column name="name" value="deleniti"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="87"/>
+            <column name="name" value="necessitatibus"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="88"/>
+            <column name="name" value="autem"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="89"/>
+            <column name="name" value="commodi"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="90"/>
+            <column name="name" value="velit"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="91"/>
+            <column name="name" value="velit"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="92"/>
+            <column name="name" value="ut"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="93"/>
+            <column name="name" value="et"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="94"/>
+            <column name="name" value="magnam"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="95"/>
+            <column name="name" value="laudantium"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="96"/>
+            <column name="name" value="totam"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="97"/>
+            <column name="name" value="praesentium"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="98"/>
+            <column name="name" value="omnis"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="99"/>
+            <column name="name" value="omnis"/>
+        </insert>
+        <insert tableName="marketplace_category">
+            <column name="id" valueNumeric="100"/>
+            <column name="name" value="odit"/>
+        </insert>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-9">
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="1"/>
+            <column name="created_at" valueDate="2005-01-11"/>
+            <column name="description" value="Quia ducimus porro voluptatem incidunt id."/>
+            <column name="name" value="Reynolds and Sons"/>
+            <column name="score" valueNumeric="6053.72"/>
+            <column name="id_category" valueNumeric="1"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="2"/>
+            <column name="created_at" valueDate="2011-09-22"/>
+            <column name="description" value="Incidunt accusantium repellat quia molestias eaque nemo."/>
+            <column name="name" value="Stroman Group"/>
+            <column name="score" valueNumeric="515222.18"/>
+            <column name="id_category" valueNumeric="2"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="3"/>
+            <column name="created_at" valueDate="2016-11-11"/>
+            <column name="description" value="Inventore vel voluptatem possimus soluta eius sit."/>
+            <column name="name" value="Padberg, Lemke and Cronin"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="3"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="4"/>
+            <column name="created_at" valueDate="1991-05-21"/>
+            <column name="description" value="Voluptas suscipit odit impedit."/>
+            <column name="name" value="McKenzie PLC"/>
+            <column name="score" valueNumeric="699.94"/>
+            <column name="id_category" valueNumeric="4"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="5"/>
+            <column name="created_at" valueDate="1976-11-08"/>
+            <column name="description" value="Minus aut omnis doloribus animi."/>
+            <column name="name" value="Wisoky, Skiles and Rolfson"/>
+            <column name="score" valueNumeric="26417883.51"/>
+            <column name="id_category" valueNumeric="5"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="6"/>
+            <column name="created_at" valueDate="2020-04-30"/>
+            <column name="description" value="Et laboriosam voluptas distinctio consequatur fugit laudantium."/>
+            <column name="name" value="Mertz LLC"/>
+            <column name="score" valueNumeric="37.11"/>
+            <column name="id_category" valueNumeric="6"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="7"/>
+            <column name="created_at" valueDate="1986-02-21"/>
+            <column name="description" value="Eaque voluptatem neque numquam aspernatur aut expedita."/>
+            <column name="name" value="Kub Inc"/>
+            <column name="score" valueNumeric="7.76"/>
+            <column name="id_category" valueNumeric="7"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="8"/>
+            <column name="created_at" valueDate="1994-06-11"/>
+            <column name="description" value="Itaque quo velit voluptatem quia voluptas."/>
+            <column name="name" value="DuBuque, Prohaska and Fritsch"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="8"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="9"/>
+            <column name="created_at" valueDate="1986-05-02"/>
+            <column name="description" value="Ad est quo blanditiis optio modi."/>
+            <column name="name" value="Mertz Group"/>
+            <column name="score" valueNumeric="5607886.64"/>
+            <column name="id_category" valueNumeric="9"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="10"/>
+            <column name="created_at" valueDate="1994-07-08"/>
+            <column name="description" value="Reiciendis et vero cupiditate."/>
+            <column name="name" value="Hickle and Sons"/>
+            <column name="score" valueNumeric="215580827.80"/>
+            <column name="id_category" valueNumeric="10"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="11"/>
+            <column name="created_at" valueDate="2015-09-01"/>
+            <column name="description" value="Dolor tenetur possimus nesciunt est qui et."/>
+            <column name="name" value="Wisozk LLC"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="11"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="12"/>
+            <column name="created_at" valueDate="1991-05-30"/>
+            <column name="description" value="Facilis necessitatibus et molestiae consectetur aliquid explicabo."/>
+            <column name="name" value="Schroeder, Reichel and Kertzmann"/>
+            <column name="score" valueNumeric="449.92"/>
+            <column name="id_category" valueNumeric="12"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="13"/>
+            <column name="created_at" valueDate="1995-03-04"/>
+            <column name="description" value="Voluptatem laudantium quia debitis ut."/>
+            <column name="name" value="Gottlieb-Spinka"/>
+            <column name="score" valueNumeric="6.40"/>
+            <column name="id_category" valueNumeric="13"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="14"/>
+            <column name="created_at" valueDate="1971-12-11"/>
+            <column name="description" value="Est natus molestiae similique rerum."/>
+            <column name="name" value="Bogan Group"/>
+            <column name="score" valueNumeric="50.66"/>
+            <column name="id_category" valueNumeric="14"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="15"/>
+            <column name="created_at" valueDate="2005-06-17"/>
+            <column name="description" value="Quos commodi repudiandae tempore est omnis necessitatibus."/>
+            <column name="name" value="Kuphal-Greenfelder"/>
+            <column name="score" valueNumeric="33927280.90"/>
+            <column name="id_category" valueNumeric="15"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="16"/>
+            <column name="created_at" valueDate="1995-05-22"/>
+            <column name="description" value="Earum repellendus voluptatem error est error dolorum libero."/>
+            <column name="name" value="Sawayn, Goodwin and Kuhn"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="16"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="17"/>
+            <column name="created_at" valueDate="1975-12-28"/>
+            <column name="description" value="Atque expedita sit omnis in."/>
+            <column name="name" value="Parisian, Kuhn and Gleason"/>
+            <column name="score" valueNumeric="34849.27"/>
+            <column name="id_category" valueNumeric="17"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="18"/>
+            <column name="created_at" valueDate="1976-10-25"/>
+            <column name="description" value="Autem a voluptas ad sunt adipisci."/>
+            <column name="name" value="Cruickshank Group"/>
+            <column name="score" valueNumeric="5465.48"/>
+            <column name="id_category" valueNumeric="18"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="19"/>
+            <column name="created_at" valueDate="2015-01-24"/>
+            <column name="description" value="Dolorum dignissimos non ad quo distinctio eum."/>
+            <column name="name" value="Stoltenberg-Hamill"/>
+            <column name="score" valueNumeric="5.57"/>
+            <column name="id_category" valueNumeric="19"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="20"/>
+            <column name="created_at" valueDate="2017-11-29"/>
+            <column name="description" value="Qui eius consequatur doloremque provident iure."/>
+            <column name="name" value="Lemke-Dare"/>
+            <column name="score" valueNumeric="6761.38"/>
+            <column name="id_category" valueNumeric="20"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="21"/>
+            <column name="created_at" valueDate="1985-01-23"/>
+            <column name="description" value="Cumque quas neque ea maxime maiores architecto at."/>
+            <column name="name" value="Yundt-Goyette"/>
+            <column name="score" valueNumeric="88459741.54"/>
+            <column name="id_category" valueNumeric="21"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="22"/>
+            <column name="created_at" valueDate="1977-07-17"/>
+            <column name="description" value="Eos necessitatibus aut nesciunt id."/>
+            <column name="name" value="Doyle and Sons"/>
+            <column name="score" valueNumeric="9849.25"/>
+            <column name="id_category" valueNumeric="22"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="23"/>
+            <column name="created_at" valueDate="1977-05-05"/>
+            <column name="description" value="Consequuntur et dolores deserunt."/>
+            <column name="name" value="Shields-Thompson"/>
+            <column name="score" valueNumeric="2772.80"/>
+            <column name="id_category" valueNumeric="23"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="24"/>
+            <column name="created_at" valueDate="1978-10-03"/>
+            <column name="description" value="Rem odio occaecati enim nesciunt."/>
+            <column name="name" value="Treutel-Nikolaus"/>
+            <column name="score" valueNumeric="14.17"/>
+            <column name="id_category" valueNumeric="24"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="25"/>
+            <column name="created_at" valueDate="2016-08-12"/>
+            <column name="description" value="Voluptatem aut ratione distinctio est non."/>
+            <column name="name" value="Lehner-Murray"/>
+            <column name="score" valueNumeric="2905.04"/>
+            <column name="id_category" valueNumeric="25"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="26"/>
+            <column name="created_at" valueDate="2018-05-20"/>
+            <column name="description" value="Est voluptatibus ipsam et temporibus et earum."/>
+            <column name="name" value="Moen-Lesch"/>
+            <column name="score" valueNumeric="198.21"/>
+            <column name="id_category" valueNumeric="26"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="27"/>
+            <column name="created_at" valueDate="2009-08-27"/>
+            <column name="description" value="Esse minus ut neque consequatur delectus."/>
+            <column name="name" value="Hand-Beier"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="27"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="28"/>
+            <column name="created_at" valueDate="2017-02-07"/>
+            <column name="description" value="Labore et occaecati atque rerum et."/>
+            <column name="name" value="Davis-Johnson"/>
+            <column name="score" valueNumeric="71.93"/>
+            <column name="id_category" valueNumeric="28"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="29"/>
+            <column name="created_at" valueDate="2002-09-27"/>
+            <column name="description" value="Cupiditate voluptates qui cupiditate aliquam sapiente praesentium."/>
+            <column name="name" value="Gutmann-Larson"/>
+            <column name="score" valueNumeric="371833404.07"/>
+            <column name="id_category" valueNumeric="29"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="30"/>
+            <column name="created_at" valueDate="2013-03-23"/>
+            <column name="description" value="In cum et fuga."/>
+            <column name="name" value="Anderson, Bechtelar and Lynch"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="30"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="31"/>
+            <column name="created_at" valueDate="1973-10-04"/>
+            <column name="description" value="Deserunt voluptate qui ea cum."/>
+            <column name="name" value="Mann and Sons"/>
+            <column name="score" valueNumeric="767655.00"/>
+            <column name="id_category" valueNumeric="31"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="32"/>
+            <column name="created_at" valueDate="1996-02-09"/>
+            <column name="description" value="Itaque aut quia suscipit atque non occaecati."/>
+            <column name="name" value="Harris LLC"/>
+            <column name="score" valueNumeric="6.90"/>
+            <column name="id_category" valueNumeric="32"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="33"/>
+            <column name="created_at" valueDate="2018-10-15"/>
+            <column name="description" value="Quia voluptatem sit hic ut sequi ratione."/>
+            <column name="name" value="Robel, Keebler and Lind"/>
+            <column name="score" valueNumeric="2645.00"/>
+            <column name="id_category" valueNumeric="33"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="34"/>
+            <column name="created_at" valueDate="2018-06-04"/>
+            <column name="description" value="Odio cumque sed excepturi porro."/>
+            <column name="name" value="Schoen-Hackett"/>
+            <column name="score" valueNumeric="0.90"/>
+            <column name="id_category" valueNumeric="34"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="35"/>
+            <column name="created_at" valueDate="2003-07-28"/>
+            <column name="description" value="Est alias quos beatae sequi quam dolorem."/>
+            <column name="name" value="Keebler, Schowalter and Bailey"/>
+            <column name="score" valueNumeric="26317.63"/>
+            <column name="id_category" valueNumeric="35"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="36"/>
+            <column name="created_at" valueDate="2004-06-04"/>
+            <column name="description" value="Est inventore laudantium architecto."/>
+            <column name="name" value="Haag-Runolfsdottir"/>
+            <column name="score" valueNumeric="348834.10"/>
+            <column name="id_category" valueNumeric="36"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="37"/>
+            <column name="created_at" valueDate="2006-04-29"/>
+            <column name="description" value="Nihil commodi sit iste itaque libero natus."/>
+            <column name="name" value="Parker Inc"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="37"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="38"/>
+            <column name="created_at" valueDate="1990-05-21"/>
+            <column name="description" value="In dolore cum veritatis nihil voluptate voluptas."/>
+            <column name="name" value="Langworth-Rohan"/>
+            <column name="score" valueNumeric="205958427.49"/>
+            <column name="id_category" valueNumeric="38"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="39"/>
+            <column name="created_at" valueDate="2016-07-05"/>
+            <column name="description" value="Officia consequatur quas incidunt debitis quam."/>
+            <column name="name" value="Lebsack-Kassulke"/>
+            <column name="score" valueNumeric="736.46"/>
+            <column name="id_category" valueNumeric="39"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="40"/>
+            <column name="created_at" valueDate="1977-04-11"/>
+            <column name="description" value="Perspiciatis quisquam dolorem rerum consectetur."/>
+            <column name="name" value="Bins-Eichmann"/>
+            <column name="score" valueNumeric="970.00"/>
+            <column name="id_category" valueNumeric="40"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="41"/>
+            <column name="created_at" valueDate="2002-01-11"/>
+            <column name="description" value="Error dolore ea porro enim."/>
+            <column name="name" value="Ebert, Zieme and Kuhic"/>
+            <column name="score" valueNumeric="343413.95"/>
+            <column name="id_category" valueNumeric="41"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="42"/>
+            <column name="created_at" valueDate="1996-09-25"/>
+            <column name="description" value="Ut atque itaque tenetur quo ut."/>
+            <column name="name" value="Welch-Gutkowski"/>
+            <column name="score" valueNumeric="538469.98"/>
+            <column name="id_category" valueNumeric="42"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="43"/>
+            <column name="created_at" valueDate="2002-05-08"/>
+            <column name="description" value="Numquam quia aliquid vel eos ut repellendus."/>
+            <column name="name" value="Champlin-Streich"/>
+            <column name="score" valueNumeric="832254.61"/>
+            <column name="id_category" valueNumeric="43"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="44"/>
+            <column name="created_at" valueDate="1986-04-04"/>
+            <column name="description" value="Et incidunt laborum porro velit."/>
+            <column name="name" value="Barrows, Schumm and Swift"/>
+            <column name="score" valueNumeric="52190.00"/>
+            <column name="id_category" valueNumeric="44"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="45"/>
+            <column name="created_at" valueDate="2008-05-09"/>
+            <column name="description" value="Blanditiis non blanditiis temporibus."/>
+            <column name="name" value="Cole LLC"/>
+            <column name="score" valueNumeric="5234.80"/>
+            <column name="id_category" valueNumeric="45"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="46"/>
+            <column name="created_at" valueDate="2000-02-23"/>
+            <column name="description" value="Et totam labore reprehenderit tenetur dolores assumenda."/>
+            <column name="name" value="Rodriguez, Klocko and Kovacek"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="46"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="47"/>
+            <column name="created_at" valueDate="2017-08-04"/>
+            <column name="description" value="Quis ipsa nihil qui magnam quia beatae blanditiis."/>
+            <column name="name" value="Sauer, Rosenbaum and Hammes"/>
+            <column name="score" valueNumeric="16624.99"/>
+            <column name="id_category" valueNumeric="47"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="48"/>
+            <column name="created_at" valueDate="2009-07-21"/>
+            <column name="description" value="Harum expedita eveniet at laborum."/>
+            <column name="name" value="Runolfsdottir, Ankunding and Denesik"/>
+            <column name="score" valueNumeric="363390.02"/>
+            <column name="id_category" valueNumeric="48"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="49"/>
+            <column name="created_at" valueDate="1975-05-11"/>
+            <column name="description" value="Sit placeat accusantium doloribus."/>
+            <column name="name" value="Marquardt LLC"/>
+            <column name="score" valueNumeric="579583.99"/>
+            <column name="id_category" valueNumeric="49"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="50"/>
+            <column name="created_at" valueDate="2010-06-07"/>
+            <column name="description" value="Labore est omnis magni sed aliquam velit."/>
+            <column name="name" value="Zemlak-Flatley"/>
+            <column name="score" valueNumeric="321.61"/>
+            <column name="id_category" valueNumeric="50"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="51"/>
+            <column name="created_at" valueDate="1976-02-08"/>
+            <column name="description" value="Optio dolor dolor eum et qui omnis qui."/>
+            <column name="name" value="Gutkowski-Jenkins"/>
+            <column name="score" valueNumeric="7028.82"/>
+            <column name="id_category" valueNumeric="51"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="52"/>
+            <column name="created_at" valueDate="2016-06-04"/>
+            <column name="description" value="Placeat non dolores rem natus dignissimos sed."/>
+            <column name="name" value="Beahan-Hettinger"/>
+            <column name="score" valueNumeric="1073.60"/>
+            <column name="id_category" valueNumeric="52"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="53"/>
+            <column name="created_at" valueDate="1973-09-20"/>
+            <column name="description" value="Iure voluptas quam qui voluptatem maxime ducimus."/>
+            <column name="name" value="Flatley-McGlynn"/>
+            <column name="score" valueNumeric="21001541.89"/>
+            <column name="id_category" valueNumeric="53"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="54"/>
+            <column name="created_at" valueDate="2013-12-08"/>
+            <column name="description" value="Fugit ut blanditiis esse labore consequatur eveniet est."/>
+            <column name="name" value="Armstrong-Spinka"/>
+            <column name="score" valueNumeric="6.67"/>
+            <column name="id_category" valueNumeric="54"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="55"/>
+            <column name="created_at" valueDate="1980-09-13"/>
+            <column name="description" value="Et quia ab aut."/>
+            <column name="name" value="Abbott, Veum and Abernathy"/>
+            <column name="score" valueNumeric="84.67"/>
+            <column name="id_category" valueNumeric="55"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="56"/>
+            <column name="created_at" valueDate="1970-04-03"/>
+            <column name="description" value="Nesciunt dolorem numquam ab velit voluptates ut."/>
+            <column name="name" value="Heaney, Considine and Lindgren"/>
+            <column name="score" valueNumeric="62.44"/>
+            <column name="id_category" valueNumeric="56"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="57"/>
+            <column name="created_at" valueDate="2006-03-24"/>
+            <column name="description" value="Quae nobis officia est ut."/>
+            <column name="name" value="Kuvalis Inc"/>
+            <column name="score" valueNumeric="1293769.00"/>
+            <column name="id_category" valueNumeric="57"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="58"/>
+            <column name="created_at" valueDate="2003-07-17"/>
+            <column name="description" value="Ad architecto odit magnam ea velit asperiores."/>
+            <column name="name" value="Sanford-Volkman"/>
+            <column name="score" valueNumeric="1.93"/>
+            <column name="id_category" valueNumeric="58"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="59"/>
+            <column name="created_at" valueDate="1996-07-11"/>
+            <column name="description" value="Maxime aspernatur ut eum voluptatem nisi dolorum."/>
+            <column name="name" value="Denesik-Crist"/>
+            <column name="score" valueNumeric="29.39"/>
+            <column name="id_category" valueNumeric="59"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="60"/>
+            <column name="created_at" valueDate="2006-07-28"/>
+            <column name="description" value="Ullam recusandae omnis ut vitae animi."/>
+            <column name="name" value="Glover, Kulas and Hermann"/>
+            <column name="score" valueNumeric="72285504.57"/>
+            <column name="id_category" valueNumeric="60"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="61"/>
+            <column name="created_at" valueDate="2014-11-03"/>
+            <column name="description" value="Saepe voluptatem dolor voluptas maxime saepe repudiandae."/>
+            <column name="name" value="Terry-Bogan"/>
+            <column name="score" valueNumeric="22669.13"/>
+            <column name="id_category" valueNumeric="61"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="62"/>
+            <column name="created_at" valueDate="2014-10-04"/>
+            <column name="description" value="Ea doloribus facilis modi dolor modi nostrum."/>
+            <column name="name" value="Mante-Schoen"/>
+            <column name="score" valueNumeric="3247656.18"/>
+            <column name="id_category" valueNumeric="62"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="63"/>
+            <column name="created_at" valueDate="1975-09-02"/>
+            <column name="description" value="Quae praesentium laudantium tempora voluptas."/>
+            <column name="name" value="Wilkinson-Collins"/>
+            <column name="score" valueNumeric="9777.83"/>
+            <column name="id_category" valueNumeric="63"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="64"/>
+            <column name="created_at" valueDate="2020-08-03"/>
+            <column name="description" value="Consectetur ut sunt amet provident fugit distinctio consectetur."/>
+            <column name="name" value="Emard, Toy and Dibbert"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="64"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="65"/>
+            <column name="created_at" valueDate="1979-10-11"/>
+            <column name="description" value="Nostrum repellat odit ex asperiores ut."/>
+            <column name="name" value="Strosin-Cummerata"/>
+            <column name="score" valueNumeric="5881060.13"/>
+            <column name="id_category" valueNumeric="65"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="66"/>
+            <column name="created_at" valueDate="1980-10-19"/>
+            <column name="description" value="Et eum repellendus voluptatem explicabo hic eos praesentium."/>
+            <column name="name" value="Kreiger, Moen and Ward"/>
+            <column name="score" valueNumeric="44.49"/>
+            <column name="id_category" valueNumeric="66"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="67"/>
+            <column name="created_at" valueDate="1973-01-18"/>
+            <column name="description" value="Et rerum non nam debitis animi et."/>
+            <column name="name" value="Mante Ltd"/>
+            <column name="score" valueNumeric="67236811.42"/>
+            <column name="id_category" valueNumeric="67"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="68"/>
+            <column name="created_at" valueDate="2016-01-06"/>
+            <column name="description" value="Cupiditate hic ad inventore ducimus ut."/>
+            <column name="name" value="Pfeffer-Fay"/>
+            <column name="score" valueNumeric="20825.60"/>
+            <column name="id_category" valueNumeric="68"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="69"/>
+            <column name="created_at" valueDate="2013-04-28"/>
+            <column name="description" value="Corrupti qui incidunt reiciendis dolores alias."/>
+            <column name="name" value="Hayes, Pfannerstill and Okuneva"/>
+            <column name="score" valueNumeric="7946.86"/>
+            <column name="id_category" valueNumeric="69"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="70"/>
+            <column name="created_at" valueDate="2000-02-10"/>
+            <column name="description" value="Expedita qui nobis autem eius vitae voluptatem sit."/>
+            <column name="name" value="Marquardt Inc"/>
+            <column name="score" valueNumeric="0.23"/>
+            <column name="id_category" valueNumeric="70"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="71"/>
+            <column name="created_at" valueDate="2018-03-14"/>
+            <column name="description" value="Eum assumenda corrupti provident perferendis."/>
+            <column name="name" value="Heidenreich, Jenkins and Eichmann"/>
+            <column name="score" valueNumeric="33038525.90"/>
+            <column name="id_category" valueNumeric="71"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="72"/>
+            <column name="created_at" valueDate="2007-04-24"/>
+            <column name="description" value="Doloribus eos sunt occaecati ipsam."/>
+            <column name="name" value="Tromp and Sons"/>
+            <column name="score" valueNumeric="4598.65"/>
+            <column name="id_category" valueNumeric="72"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="73"/>
+            <column name="created_at" valueDate="1979-06-10"/>
+            <column name="description" value="Nihil dolorum magnam cumque ea dolor sit."/>
+            <column name="name" value="Quitzon-Denesik"/>
+            <column name="score" valueNumeric="599.30"/>
+            <column name="id_category" valueNumeric="73"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="74"/>
+            <column name="created_at" valueDate="1999-11-18"/>
+            <column name="description" value="Voluptatem nam est excepturi sed esse."/>
+            <column name="name" value="VonRueden Ltd"/>
+            <column name="score" valueNumeric="4002.12"/>
+            <column name="id_category" valueNumeric="74"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="75"/>
+            <column name="created_at" valueDate="2000-08-23"/>
+            <column name="description" value="Aut eius asperiores neque ullam dolor et quisquam sint."/>
+            <column name="name" value="Becker-Muller"/>
+            <column name="score" valueNumeric="1.50"/>
+            <column name="id_category" valueNumeric="75"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="76"/>
+            <column name="created_at" valueDate="2008-01-19"/>
+            <column name="description" value="Adipisci quas eos non voluptatibus."/>
+            <column name="name" value="Cummerata-Auer"/>
+            <column name="score" valueNumeric="49.27"/>
+            <column name="id_category" valueNumeric="76"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="77"/>
+            <column name="created_at" valueDate="1971-09-19"/>
+            <column name="description" value="Commodi aspernatur quasi rerum voluptas assumenda cumque velit."/>
+            <column name="name" value="Lindgren-Dibbert"/>
+            <column name="score" valueNumeric="202.50"/>
+            <column name="id_category" valueNumeric="77"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="78"/>
+            <column name="created_at" valueDate="1994-11-28"/>
+            <column name="description" value="Suscipit ut est voluptatibus quam non dolor praesentium."/>
+            <column name="name" value="Shanahan Ltd"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="78"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="79"/>
+            <column name="created_at" valueDate="1980-12-18"/>
+            <column name="description" value="Aperiam sunt et eum est voluptatem possimus aperiam."/>
+            <column name="name" value="Reilly, Flatley and Ondricka"/>
+            <column name="score" valueNumeric="7168679.45"/>
+            <column name="id_category" valueNumeric="79"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="80"/>
+            <column name="created_at" valueDate="2018-10-29"/>
+            <column name="description" value="Nemo assumenda harum perspiciatis tenetur nihil maxime ut inventore."/>
+            <column name="name" value="Mueller, Bergstrom and Kuvalis"/>
+            <column name="score" valueNumeric="546586298.25"/>
+            <column name="id_category" valueNumeric="80"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="81"/>
+            <column name="created_at" valueDate="2018-08-27"/>
+            <column name="description" value="Veniam ratione sit minima aut ea nihil."/>
+            <column name="name" value="Lynch Ltd"/>
+            <column name="score" valueNumeric="326907.23"/>
+            <column name="id_category" valueNumeric="81"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="82"/>
+            <column name="created_at" valueDate="2007-04-17"/>
+            <column name="description" value="Est ut quia labore optio eos possimus nihil."/>
+            <column name="name" value="Bailey, Dare and Gislason"/>
+            <column name="score" valueNumeric="3090217.58"/>
+            <column name="id_category" valueNumeric="82"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="83"/>
+            <column name="created_at" valueDate="1981-10-30"/>
+            <column name="description" value="Eaque est veniam corporis placeat pariatur."/>
+            <column name="name" value="Kirlin Ltd"/>
+            <column name="score" valueNumeric="28.38"/>
+            <column name="id_category" valueNumeric="83"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="84"/>
+            <column name="created_at" valueDate="2020-07-02"/>
+            <column name="description" value="Rerum minima recusandae cupiditate nisi."/>
+            <column name="name" value="Cronin, Turcotte and O'Hara"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="84"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="85"/>
+            <column name="created_at" valueDate="1985-11-21"/>
+            <column name="description" value="Adipisci est porro et nostrum quas eum eum."/>
+            <column name="name" value="Beatty Inc"/>
+            <column name="score" valueNumeric="141204800.14"/>
+            <column name="id_category" valueNumeric="85"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="86"/>
+            <column name="created_at" valueDate="1986-10-06"/>
+            <column name="description" value="Consectetur quasi itaque fugiat dolore ex voluptatem voluptas."/>
+            <column name="name" value="Bode-Johnston"/>
+            <column name="score" valueNumeric="33516691.88"/>
+            <column name="id_category" valueNumeric="86"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="87"/>
+            <column name="created_at" valueDate="2004-12-01"/>
+            <column name="description" value="Neque temporibus labore laudantium rem."/>
+            <column name="name" value="Reilly LLC"/>
+            <column name="score" valueNumeric="45.71"/>
+            <column name="id_category" valueNumeric="87"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="88"/>
+            <column name="created_at" valueDate="2014-03-11"/>
+            <column name="description" value="Atque dolores voluptas tenetur eaque sint."/>
+            <column name="name" value="Schaden, Maggio and Kunze"/>
+            <column name="score" valueNumeric="4.54"/>
+            <column name="id_category" valueNumeric="88"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="89"/>
+            <column name="created_at" valueDate="2014-12-07"/>
+            <column name="description" value="Illo eum officiis illo recusandae dolorem architecto."/>
+            <column name="name" value="Haag-Leannon"/>
+            <column name="score" valueNumeric="182.07"/>
+            <column name="id_category" valueNumeric="89"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="90"/>
+            <column name="created_at" valueDate="2002-03-01"/>
+            <column name="description" value="Dolores cumque nemo suscipit molestiae accusamus deleniti omnis quia."/>
+            <column name="name" value="Carter Inc"/>
+            <column name="score" valueNumeric="88971329.41"/>
+            <column name="id_category" valueNumeric="90"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="91"/>
+            <column name="created_at" valueDate="1992-12-11"/>
+            <column name="description" value="Libero nesciunt non neque ad aliquid sunt aut voluptatem."/>
+            <column name="name" value="Farrell and Sons"/>
+            <column name="score" valueNumeric="40308.83"/>
+            <column name="id_category" valueNumeric="91"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="92"/>
+            <column name="created_at" valueDate="1998-04-25"/>
+            <column name="description" value="Praesentium aut cupiditate magnam vero illum."/>
+            <column name="name" value="Graham Ltd"/>
+            <column name="score" valueNumeric="0.51"/>
+            <column name="id_category" valueNumeric="92"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="93"/>
+            <column name="created_at" valueDate="1972-06-13"/>
+            <column name="description" value="Dolores maxime non molestiae nesciunt repellat perspiciatis aliquid nulla."/>
+            <column name="name" value="Torphy, Weissnat and Beahan"/>
+            <column name="score" valueNumeric="16.58"/>
+            <column name="id_category" valueNumeric="93"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="94"/>
+            <column name="created_at" valueDate="1976-12-19"/>
+            <column name="description" value="Commodi natus reprehenderit reprehenderit illo asperiores aspernatur vitae aspernatur."/>
+            <column name="name" value="Toy-Hoppe"/>
+            <column name="score" valueNumeric="826796.00"/>
+            <column name="id_category" valueNumeric="94"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="95"/>
+            <column name="created_at" valueDate="1999-10-25"/>
+            <column name="description" value="Accusantium cupiditate nemo doloremque praesentium pariatur."/>
+            <column name="name" value="Zemlak-Pfeffer"/>
+            <column name="score" valueNumeric="329.41"/>
+            <column name="id_category" valueNumeric="95"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="96"/>
+            <column name="created_at" valueDate="1981-07-21"/>
+            <column name="description" value="Praesentium aut ducimus sed."/>
+            <column name="name" value="Dickinson Ltd"/>
+            <column name="score" valueNumeric="7.27"/>
+            <column name="id_category" valueNumeric="96"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="97"/>
+            <column name="created_at" valueDate="2004-06-19"/>
+            <column name="description" value="Tenetur sint quia placeat voluptatem."/>
+            <column name="name" value="Flatley Ltd"/>
+            <column name="score" valueNumeric="0.00"/>
+            <column name="id_category" valueNumeric="97"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="98"/>
+            <column name="created_at" valueDate="1992-12-18"/>
+            <column name="description" value="Expedita voluptas voluptas officiis voluptatum voluptatibus voluptatibus et."/>
+            <column name="name" value="Heidenreich, Morissette and Hoppe"/>
+            <column name="score" valueNumeric="27.57"/>
+            <column name="id_category" valueNumeric="98"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="99"/>
+            <column name="created_at" valueDate="1989-07-14"/>
+            <column name="description" value="Officiis non facilis eum facere adipisci qui."/>
+            <column name="name" value="Metz Inc"/>
+            <column name="score" valueNumeric="372682861.80"/>
+            <column name="id_category" valueNumeric="99"/>
+        </insert>
+        <insert tableName="marketplace_product">
+            <column name="id" valueNumeric="100"/>
+            <column name="created_at" valueDate="2009-11-24"/>
+            <column name="description" value="Corrupti repellat cumque magnam dolores ab dolor voluptatem."/>
+            <column name="name" value="Dickinson-Kemmer"/>
+            <column name="score" valueNumeric="95455467.03"/>
+            <column name="id_category" valueNumeric="100"/>
+        </insert>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-10">
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Jammie Beahan"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Prof. Isaias Moore DDS"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Miss Lavonne Schamberger"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Oda Hoppe Sr."/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Dr. Augusta Rowe DVM"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="6"/>
+            <column name="name" value="Henri Willms"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="7"/>
+            <column name="name" value="Prof. Pamela Torphy"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="8"/>
+            <column name="name" value="Meda Kris"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="9"/>
+            <column name="name" value="Ms. Mossie Batz"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="10"/>
+            <column name="name" value="Elvera Deckow"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="11"/>
+            <column name="name" value="Mr. Thurman Padberg DVM"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="12"/>
+            <column name="name" value="Bart Kunde"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="13"/>
+            <column name="name" value="Perry Mante"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="14"/>
+            <column name="name" value="Elliott Jenkins MD"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="15"/>
+            <column name="name" value="Jonathon Hettinger"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="16"/>
+            <column name="name" value="Lyda Ziemann"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="17"/>
+            <column name="name" value="Aida Ondricka"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="18"/>
+            <column name="name" value="Macie Hamill MD"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="19"/>
+            <column name="name" value="Dr. Kaleigh Wehner"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="20"/>
+            <column name="name" value="Dakota Sipes"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="21"/>
+            <column name="name" value="Douglas O'Reilly"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="22"/>
+            <column name="name" value="Skye Crona"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="23"/>
+            <column name="name" value="Ramon Mann III"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="24"/>
+            <column name="name" value="Orpha Kilback III"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="25"/>
+            <column name="name" value="Dr. Dennis Hickle"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="26"/>
+            <column name="name" value="Jorge Sipes"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="27"/>
+            <column name="name" value="Sister Schimmel"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="28"/>
+            <column name="name" value="Cory Olson"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="29"/>
+            <column name="name" value="Cordelia Schneider"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="30"/>
+            <column name="name" value="Adalberto Eichmann"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="31"/>
+            <column name="name" value="Janis Rippin"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="32"/>
+            <column name="name" value="Taylor Schaden I"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="33"/>
+            <column name="name" value="Lilian Cronin MD"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="34"/>
+            <column name="name" value="Derick Cronin"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="35"/>
+            <column name="name" value="Prof. Micah Pollich III"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="36"/>
+            <column name="name" value="Alfreda Gibson V"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="37"/>
+            <column name="name" value="Kelsie Heathcote"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="38"/>
+            <column name="name" value="Dr. Benedict Upton"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="39"/>
+            <column name="name" value="Preston Friesen"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="40"/>
+            <column name="name" value="Dr. Rico Feeney"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="41"/>
+            <column name="name" value="Reginald Stark I"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="42"/>
+            <column name="name" value="Ms. Ellie Bauch"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="43"/>
+            <column name="name" value="Mafalda Sauer DVM"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="44"/>
+            <column name="name" value="Miss Beverly Roberts"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="45"/>
+            <column name="name" value="Reynold Glover V"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="46"/>
+            <column name="name" value="Mariane Dietrich"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="47"/>
+            <column name="name" value="Eleazar Kovacek"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="48"/>
+            <column name="name" value="Ms. Josiane Yost"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="49"/>
+            <column name="name" value="Nicola Aufderhar"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="50"/>
+            <column name="name" value="Van Bauch DDS"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="51"/>
+            <column name="name" value="Bette Franecki"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="52"/>
+            <column name="name" value="Salvador Beier"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="53"/>
+            <column name="name" value="Santos Sporer Sr."/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="54"/>
+            <column name="name" value="Victor Dibbert"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="55"/>
+            <column name="name" value="Jonathan Windler"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="56"/>
+            <column name="name" value="Olaf Bosco"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="57"/>
+            <column name="name" value="Charlie Cassin"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="58"/>
+            <column name="name" value="Brown Ziemann"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="59"/>
+            <column name="name" value="Mrs. Shanon Labadie"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="60"/>
+            <column name="name" value="Lauriane Bechtelar V"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="61"/>
+            <column name="name" value="Arjun Runolfsson"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="62"/>
+            <column name="name" value="Ms. Aylin Hauck IV"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="63"/>
+            <column name="name" value="Prof. Angeline Hagenes"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="64"/>
+            <column name="name" value="Jaylin Dare"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="65"/>
+            <column name="name" value="Prof. Rosalyn Shields"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="66"/>
+            <column name="name" value="Dr. Hobart Reilly"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="67"/>
+            <column name="name" value="Maia Cremin"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="68"/>
+            <column name="name" value="Mr. Bell Schmitt II"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="69"/>
+            <column name="name" value="Alexander Donnelly"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="70"/>
+            <column name="name" value="Helen Cronin IV"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="71"/>
+            <column name="name" value="Roselyn Hegmann PhD"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="72"/>
+            <column name="name" value="Dr. Kennedi Jacobi"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="73"/>
+            <column name="name" value="Milan Hilpert"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="74"/>
+            <column name="name" value="Ms. Patience Weissnat"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="75"/>
+            <column name="name" value="Alfonso Becker"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="76"/>
+            <column name="name" value="Buford Okuneva"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="77"/>
+            <column name="name" value="Dr. Malika Grimes Jr."/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="78"/>
+            <column name="name" value="Daniela Leannon"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="79"/>
+            <column name="name" value="Brycen Auer DVM"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="80"/>
+            <column name="name" value="Sherwood Lang"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="81"/>
+            <column name="name" value="Elian Tillman"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="82"/>
+            <column name="name" value="Neva Veum"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="83"/>
+            <column name="name" value="Ignacio Ankunding"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="84"/>
+            <column name="name" value="Mr. Arnold Rice I"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="85"/>
+            <column name="name" value="Chad Kilback"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="86"/>
+            <column name="name" value="Miss Dawn Mitchell MD"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="87"/>
+            <column name="name" value="Maximillian Torphy Jr."/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="88"/>
+            <column name="name" value="Bobby Kub"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="89"/>
+            <column name="name" value="Wilton Leuschke"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="90"/>
+            <column name="name" value="Hardy Rice"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="91"/>
+            <column name="name" value="Ayana Harvey"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="92"/>
+            <column name="name" value="Reynold Kutch"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="93"/>
+            <column name="name" value="Cordelia Donnelly"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="94"/>
+            <column name="name" value="Gino Lang Sr."/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="95"/>
+            <column name="name" value="Carmine O'Keefe V"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="96"/>
+            <column name="name" value="Michale Cole"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="97"/>
+            <column name="name" value="Mrs. Melba Mayer"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="98"/>
+            <column name="name" value="Mr. Xander Mraz"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="99"/>
+            <column name="name" value="Ruben Reynolds"/>
+        </insert>
+        <insert tableName="marketplace_purchaser">
+            <column name="id" valueNumeric="100"/>
+            <column name="name" value="Judge Wolf"/>
+        </insert>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-12">
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Chet Armstrong"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Mr. Terrell Brakus PhD"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Abbey Hodkiewicz"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Ms. Myra Lehner Sr."/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Josianne Wunsch V"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="6"/>
+            <column name="name" value="Ms. Simone Von"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="7"/>
+            <column name="name" value="Eugene Abernathy"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="8"/>
+            <column name="name" value="Lulu Hand"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="9"/>
+            <column name="name" value="Hoyt Rogahn"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="10"/>
+            <column name="name" value="Prof. Corine Ullrich"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="11"/>
+            <column name="name" value="Jerry Haley V"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="12"/>
+            <column name="name" value="Taurean Hills MD"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="13"/>
+            <column name="name" value="Matt Moen"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="14"/>
+            <column name="name" value="Mary Hansen"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="15"/>
+            <column name="name" value="Prof. Lorena Kovacek"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="16"/>
+            <column name="name" value="Llewellyn Krajcik"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="17"/>
+            <column name="name" value="Gunnar Pagac"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="18"/>
+            <column name="name" value="Christy Fritsch"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="19"/>
+            <column name="name" value="Clara Torphy"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="20"/>
+            <column name="name" value="Ara O'Kon"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="21"/>
+            <column name="name" value="Ismael Okuneva"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="22"/>
+            <column name="name" value="Prof. Darlene Sanford IV"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="23"/>
+            <column name="name" value="Prof. Clemens Barrows I"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="24"/>
+            <column name="name" value="Norbert Luettgen"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="25"/>
+            <column name="name" value="Aisha Littel DVM"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="26"/>
+            <column name="name" value="Leonie Fay Jr."/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="27"/>
+            <column name="name" value="Dr. Marlon Effertz I"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="28"/>
+            <column name="name" value="Mr. Gardner Weber"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="29"/>
+            <column name="name" value="Vicenta Volkman"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="30"/>
+            <column name="name" value="Dr. Maya Morar I"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="31"/>
+            <column name="name" value="Adriana Lang"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="32"/>
+            <column name="name" value="Mr. Esteban Huel II"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="33"/>
+            <column name="name" value="Marley Grant"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="34"/>
+            <column name="name" value="Prof. Allen Lubowitz"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="35"/>
+            <column name="name" value="Elta Toy"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="36"/>
+            <column name="name" value="Miss Maymie Cummings"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="37"/>
+            <column name="name" value="Prof. Savion Ward Sr."/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="38"/>
+            <column name="name" value="Amalia Goyette"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="39"/>
+            <column name="name" value="Karina Bartoletti"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="40"/>
+            <column name="name" value="Elsa Ebert"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="41"/>
+            <column name="name" value="Eldred Dibbert PhD"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="42"/>
+            <column name="name" value="Lilian Medhurst"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="43"/>
+            <column name="name" value="Vergie Dare"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="44"/>
+            <column name="name" value="Nicole Brekke"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="45"/>
+            <column name="name" value="Devon Bosco"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="46"/>
+            <column name="name" value="Hester Emmerich"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="47"/>
+            <column name="name" value="Dr. Percy Orn Sr."/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="48"/>
+            <column name="name" value="Dr. Madyson Rice IV"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="49"/>
+            <column name="name" value="Jaycee Wiegand"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="50"/>
+            <column name="name" value="Marcella Auer MD"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="51"/>
+            <column name="name" value="Donavon Abbott"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="52"/>
+            <column name="name" value="Erling Boyer Sr."/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="53"/>
+            <column name="name" value="Douglas Bednar"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="54"/>
+            <column name="name" value="Albina Hegmann"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="55"/>
+            <column name="name" value="Judd Legros"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="56"/>
+            <column name="name" value="Vince Stiedemann"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="57"/>
+            <column name="name" value="Amber Gusikowski PhD"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="58"/>
+            <column name="name" value="Mrs. Eloise Miller"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="59"/>
+            <column name="name" value="Prof. Joyce Marquardt Sr."/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="60"/>
+            <column name="name" value="Prof. Josianne Jerde"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="61"/>
+            <column name="name" value="Jamar Morissette"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="62"/>
+            <column name="name" value="Delores Denesik IV"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="63"/>
+            <column name="name" value="Emily Fisher"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="64"/>
+            <column name="name" value="Prof. Rocio Gerhold Jr."/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="65"/>
+            <column name="name" value="Fleta Streich"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="66"/>
+            <column name="name" value="Elmo Abbott"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="67"/>
+            <column name="name" value="Coby Donnelly"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="68"/>
+            <column name="name" value="Dannie Hauck II"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="69"/>
+            <column name="name" value="Mr. Murl Dickinson"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="70"/>
+            <column name="name" value="Clifford Johnston"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="71"/>
+            <column name="name" value="Joshua Dooley"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="72"/>
+            <column name="name" value="Coy Corkery"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="73"/>
+            <column name="name" value="Prof. Orville Bauch I"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="74"/>
+            <column name="name" value="Clair Ledner"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="75"/>
+            <column name="name" value="Mr. Keshaun Reichert III"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="76"/>
+            <column name="name" value="Dr. Bernard Reynolds III"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="77"/>
+            <column name="name" value="Joe Swaniawski"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="78"/>
+            <column name="name" value="Destinee Bernhard"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="79"/>
+            <column name="name" value="Shanelle Satterfield"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="80"/>
+            <column name="name" value="Prof. Trent Bashirian DDS"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="81"/>
+            <column name="name" value="Lesly Durgan Jr."/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="82"/>
+            <column name="name" value="Wilhelmine Predovic Sr."/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="83"/>
+            <column name="name" value="Khalid Hudson"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="84"/>
+            <column name="name" value="Dr. Gianni Mueller"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="85"/>
+            <column name="name" value="Mr. Kyleigh Murray"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="86"/>
+            <column name="name" value="Coy Brekke DDS"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="87"/>
+            <column name="name" value="Augusta Hackett"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="88"/>
+            <column name="name" value="Prof. Adaline Schoen DDS"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="89"/>
+            <column name="name" value="Prof. Alexa Nader Sr."/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="90"/>
+            <column name="name" value="Percy Paucek"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="91"/>
+            <column name="name" value="Eda White"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="92"/>
+            <column name="name" value="Prof. Jerrold Lehner"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="93"/>
+            <column name="name" value="Prof. Damian Dooley"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="94"/>
+            <column name="name" value="Mrs. Lorena Schamberger V"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="95"/>
+            <column name="name" value="Prof. Cortez Kerluke"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="96"/>
+            <column name="name" value="German Balistreri"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="97"/>
+            <column name="name" value="Ariane Dibbert"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="98"/>
+            <column name="name" value="Mr. Jamaal McGlynn V"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="99"/>
+            <column name="name" value="Mr. Jack Rogahn"/>
+        </insert>
+        <insert tableName="marketplace_seller">
+            <column name="id" valueNumeric="100"/>
+            <column name="name" value="Prof. Cristina Kshlerin II"/>
+        </insert>
+    </changeSet>
+    <changeSet author="jpveira (generated)" id="1619608244717-11">
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="1"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="1"/>
+            <column name="id_purchaser" valueNumeric="1"/>
+            <column name="id_seller" valueNumeric="1"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="2"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="2"/>
+            <column name="id_purchaser" valueNumeric="2"/>
+            <column name="id_seller" valueNumeric="2"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="3"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="3"/>
+            <column name="id_purchaser" valueNumeric="3"/>
+            <column name="id_seller" valueNumeric="3"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="4"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="4"/>
+            <column name="id_purchaser" valueNumeric="4"/>
+            <column name="id_seller" valueNumeric="4"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="5"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="5"/>
+            <column name="id_purchaser" valueNumeric="5"/>
+            <column name="id_seller" valueNumeric="5"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="6"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="6"/>
+            <column name="id_purchaser" valueNumeric="6"/>
+            <column name="id_seller" valueNumeric="6"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="7"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="7"/>
+            <column name="id_purchaser" valueNumeric="7"/>
+            <column name="id_seller" valueNumeric="7"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="8"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="8"/>
+            <column name="id_purchaser" valueNumeric="8"/>
+            <column name="id_seller" valueNumeric="8"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="9"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="9"/>
+            <column name="id_purchaser" valueNumeric="9"/>
+            <column name="id_seller" valueNumeric="9"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="10"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="10"/>
+            <column name="id_purchaser" valueNumeric="10"/>
+            <column name="id_seller" valueNumeric="10"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="11"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="11"/>
+            <column name="id_purchaser" valueNumeric="11"/>
+            <column name="id_seller" valueNumeric="11"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="12"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="12"/>
+            <column name="id_purchaser" valueNumeric="12"/>
+            <column name="id_seller" valueNumeric="12"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="13"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="13"/>
+            <column name="id_purchaser" valueNumeric="13"/>
+            <column name="id_seller" valueNumeric="13"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="14"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="14"/>
+            <column name="id_purchaser" valueNumeric="14"/>
+            <column name="id_seller" valueNumeric="14"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="15"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="15"/>
+            <column name="id_purchaser" valueNumeric="15"/>
+            <column name="id_seller" valueNumeric="15"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="16"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="16"/>
+            <column name="id_purchaser" valueNumeric="16"/>
+            <column name="id_seller" valueNumeric="16"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="17"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="17"/>
+            <column name="id_purchaser" valueNumeric="17"/>
+            <column name="id_seller" valueNumeric="17"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="18"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="18"/>
+            <column name="id_purchaser" valueNumeric="18"/>
+            <column name="id_seller" valueNumeric="18"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="19"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="19"/>
+            <column name="id_purchaser" valueNumeric="19"/>
+            <column name="id_seller" valueNumeric="19"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="20"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="20"/>
+            <column name="id_purchaser" valueNumeric="20"/>
+            <column name="id_seller" valueNumeric="20"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="21"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="21"/>
+            <column name="id_purchaser" valueNumeric="21"/>
+            <column name="id_seller" valueNumeric="21"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="22"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="22"/>
+            <column name="id_purchaser" valueNumeric="22"/>
+            <column name="id_seller" valueNumeric="22"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="23"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="23"/>
+            <column name="id_purchaser" valueNumeric="23"/>
+            <column name="id_seller" valueNumeric="23"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="24"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="24"/>
+            <column name="id_purchaser" valueNumeric="24"/>
+            <column name="id_seller" valueNumeric="24"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="25"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="25"/>
+            <column name="id_purchaser" valueNumeric="25"/>
+            <column name="id_seller" valueNumeric="25"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="26"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="26"/>
+            <column name="id_purchaser" valueNumeric="26"/>
+            <column name="id_seller" valueNumeric="26"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="27"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="27"/>
+            <column name="id_purchaser" valueNumeric="27"/>
+            <column name="id_seller" valueNumeric="27"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="28"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="28"/>
+            <column name="id_purchaser" valueNumeric="28"/>
+            <column name="id_seller" valueNumeric="28"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="29"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="29"/>
+            <column name="id_purchaser" valueNumeric="29"/>
+            <column name="id_seller" valueNumeric="29"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="30"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="30"/>
+            <column name="id_purchaser" valueNumeric="30"/>
+            <column name="id_seller" valueNumeric="30"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="31"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="31"/>
+            <column name="id_purchaser" valueNumeric="31"/>
+            <column name="id_seller" valueNumeric="31"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="32"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="32"/>
+            <column name="id_purchaser" valueNumeric="32"/>
+            <column name="id_seller" valueNumeric="32"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="33"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="33"/>
+            <column name="id_purchaser" valueNumeric="33"/>
+            <column name="id_seller" valueNumeric="33"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="34"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="34"/>
+            <column name="id_purchaser" valueNumeric="34"/>
+            <column name="id_seller" valueNumeric="34"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="35"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="35"/>
+            <column name="id_purchaser" valueNumeric="35"/>
+            <column name="id_seller" valueNumeric="35"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="36"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="36"/>
+            <column name="id_purchaser" valueNumeric="36"/>
+            <column name="id_seller" valueNumeric="36"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="37"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="37"/>
+            <column name="id_purchaser" valueNumeric="37"/>
+            <column name="id_seller" valueNumeric="37"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="38"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="38"/>
+            <column name="id_purchaser" valueNumeric="38"/>
+            <column name="id_seller" valueNumeric="38"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="39"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="39"/>
+            <column name="id_purchaser" valueNumeric="39"/>
+            <column name="id_seller" valueNumeric="39"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="40"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="40"/>
+            <column name="id_purchaser" valueNumeric="40"/>
+            <column name="id_seller" valueNumeric="40"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="41"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="41"/>
+            <column name="id_purchaser" valueNumeric="41"/>
+            <column name="id_seller" valueNumeric="41"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="42"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="42"/>
+            <column name="id_purchaser" valueNumeric="42"/>
+            <column name="id_seller" valueNumeric="42"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="43"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="43"/>
+            <column name="id_purchaser" valueNumeric="43"/>
+            <column name="id_seller" valueNumeric="43"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="44"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="44"/>
+            <column name="id_purchaser" valueNumeric="44"/>
+            <column name="id_seller" valueNumeric="44"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="45"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="45"/>
+            <column name="id_purchaser" valueNumeric="45"/>
+            <column name="id_seller" valueNumeric="45"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="46"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="46"/>
+            <column name="id_purchaser" valueNumeric="46"/>
+            <column name="id_seller" valueNumeric="46"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="47"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="47"/>
+            <column name="id_purchaser" valueNumeric="47"/>
+            <column name="id_seller" valueNumeric="47"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="48"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="48"/>
+            <column name="id_purchaser" valueNumeric="48"/>
+            <column name="id_seller" valueNumeric="48"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="49"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="49"/>
+            <column name="id_purchaser" valueNumeric="49"/>
+            <column name="id_seller" valueNumeric="49"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="50"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="50"/>
+            <column name="id_purchaser" valueNumeric="50"/>
+            <column name="id_seller" valueNumeric="50"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="51"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="51"/>
+            <column name="id_purchaser" valueNumeric="51"/>
+            <column name="id_seller" valueNumeric="51"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="52"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="52"/>
+            <column name="id_purchaser" valueNumeric="52"/>
+            <column name="id_seller" valueNumeric="52"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="53"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="53"/>
+            <column name="id_purchaser" valueNumeric="53"/>
+            <column name="id_seller" valueNumeric="53"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="54"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="54"/>
+            <column name="id_purchaser" valueNumeric="54"/>
+            <column name="id_seller" valueNumeric="54"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="55"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="55"/>
+            <column name="id_purchaser" valueNumeric="55"/>
+            <column name="id_seller" valueNumeric="55"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="56"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="56"/>
+            <column name="id_purchaser" valueNumeric="56"/>
+            <column name="id_seller" valueNumeric="56"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="57"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="57"/>
+            <column name="id_purchaser" valueNumeric="57"/>
+            <column name="id_seller" valueNumeric="57"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="58"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="58"/>
+            <column name="id_purchaser" valueNumeric="58"/>
+            <column name="id_seller" valueNumeric="58"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="59"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="59"/>
+            <column name="id_purchaser" valueNumeric="59"/>
+            <column name="id_seller" valueNumeric="59"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="60"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="60"/>
+            <column name="id_purchaser" valueNumeric="60"/>
+            <column name="id_seller" valueNumeric="60"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="61"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="61"/>
+            <column name="id_purchaser" valueNumeric="61"/>
+            <column name="id_seller" valueNumeric="61"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="62"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="62"/>
+            <column name="id_purchaser" valueNumeric="62"/>
+            <column name="id_seller" valueNumeric="62"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="63"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="63"/>
+            <column name="id_purchaser" valueNumeric="63"/>
+            <column name="id_seller" valueNumeric="63"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="64"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="64"/>
+            <column name="id_purchaser" valueNumeric="64"/>
+            <column name="id_seller" valueNumeric="64"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="65"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="65"/>
+            <column name="id_purchaser" valueNumeric="65"/>
+            <column name="id_seller" valueNumeric="65"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="66"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="66"/>
+            <column name="id_purchaser" valueNumeric="66"/>
+            <column name="id_seller" valueNumeric="66"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="67"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="67"/>
+            <column name="id_purchaser" valueNumeric="67"/>
+            <column name="id_seller" valueNumeric="67"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="68"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="68"/>
+            <column name="id_purchaser" valueNumeric="68"/>
+            <column name="id_seller" valueNumeric="68"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="69"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="69"/>
+            <column name="id_purchaser" valueNumeric="69"/>
+            <column name="id_seller" valueNumeric="69"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="70"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="70"/>
+            <column name="id_purchaser" valueNumeric="70"/>
+            <column name="id_seller" valueNumeric="70"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="71"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="71"/>
+            <column name="id_purchaser" valueNumeric="71"/>
+            <column name="id_seller" valueNumeric="71"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="72"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="72"/>
+            <column name="id_purchaser" valueNumeric="72"/>
+            <column name="id_seller" valueNumeric="72"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="73"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="73"/>
+            <column name="id_purchaser" valueNumeric="73"/>
+            <column name="id_seller" valueNumeric="73"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="74"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="74"/>
+            <column name="id_purchaser" valueNumeric="74"/>
+            <column name="id_seller" valueNumeric="74"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="75"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="75"/>
+            <column name="id_purchaser" valueNumeric="75"/>
+            <column name="id_seller" valueNumeric="75"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="76"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="76"/>
+            <column name="id_purchaser" valueNumeric="76"/>
+            <column name="id_seller" valueNumeric="76"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="77"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="77"/>
+            <column name="id_purchaser" valueNumeric="77"/>
+            <column name="id_seller" valueNumeric="77"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="78"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="78"/>
+            <column name="id_purchaser" valueNumeric="78"/>
+            <column name="id_seller" valueNumeric="78"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="79"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="79"/>
+            <column name="id_purchaser" valueNumeric="79"/>
+            <column name="id_seller" valueNumeric="79"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="80"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="80"/>
+            <column name="id_purchaser" valueNumeric="80"/>
+            <column name="id_seller" valueNumeric="80"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="81"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="81"/>
+            <column name="id_purchaser" valueNumeric="81"/>
+            <column name="id_seller" valueNumeric="81"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="82"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="82"/>
+            <column name="id_purchaser" valueNumeric="82"/>
+            <column name="id_seller" valueNumeric="82"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="83"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="83"/>
+            <column name="id_purchaser" valueNumeric="83"/>
+            <column name="id_seller" valueNumeric="83"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="84"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="84"/>
+            <column name="id_purchaser" valueNumeric="84"/>
+            <column name="id_seller" valueNumeric="84"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="85"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="85"/>
+            <column name="id_purchaser" valueNumeric="85"/>
+            <column name="id_seller" valueNumeric="85"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="86"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="86"/>
+            <column name="id_purchaser" valueNumeric="86"/>
+            <column name="id_seller" valueNumeric="86"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="87"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="87"/>
+            <column name="id_purchaser" valueNumeric="87"/>
+            <column name="id_seller" valueNumeric="87"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="88"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="88"/>
+            <column name="id_purchaser" valueNumeric="88"/>
+            <column name="id_seller" valueNumeric="88"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="89"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="89"/>
+            <column name="id_purchaser" valueNumeric="89"/>
+            <column name="id_seller" valueNumeric="89"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="90"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="90"/>
+            <column name="id_purchaser" valueNumeric="90"/>
+            <column name="id_seller" valueNumeric="90"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="91"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="91"/>
+            <column name="id_purchaser" valueNumeric="91"/>
+            <column name="id_seller" valueNumeric="91"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="92"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="92"/>
+            <column name="id_purchaser" valueNumeric="92"/>
+            <column name="id_seller" valueNumeric="92"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="93"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="93"/>
+            <column name="id_purchaser" valueNumeric="93"/>
+            <column name="id_seller" valueNumeric="93"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="94"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="94"/>
+            <column name="id_purchaser" valueNumeric="94"/>
+            <column name="id_seller" valueNumeric="94"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="95"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="95"/>
+            <column name="id_purchaser" valueNumeric="95"/>
+            <column name="id_seller" valueNumeric="95"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="96"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="96"/>
+            <column name="id_purchaser" valueNumeric="96"/>
+            <column name="id_seller" valueNumeric="96"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="97"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="97"/>
+            <column name="id_purchaser" valueNumeric="97"/>
+            <column name="id_seller" valueNumeric="97"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="98"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="98"/>
+            <column name="id_purchaser" valueNumeric="98"/>
+            <column name="id_seller" valueNumeric="98"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="99"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="99"/>
+            <column name="id_purchaser" valueNumeric="99"/>
+            <column name="id_seller" valueNumeric="99"/>
+        </insert>
+        <insert tableName="marketplace_sale">
+            <column name="id" valueNumeric="100"/>
+            <column name="score" valueNumeric="2147483647"/>
+            <column name="id_product" valueNumeric="100"/>
+            <column name="id_purchaser" valueNumeric="100"/>
+            <column name="id_seller" valueNumeric="100"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

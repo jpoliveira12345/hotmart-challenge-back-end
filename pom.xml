@@ -81,7 +81,7 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>4.3.4</version>
 				<configuration>
-					<propertyFile>src/main/resources/liquibase.yml</propertyFile>
+					<propertyFile>src/main/resources/application.yml</propertyFile>
 				</configuration>
 			</plugin>
 			<plugin>

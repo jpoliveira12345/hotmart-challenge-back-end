@@ -1,5 +1,0 @@
-driver: com.mysql.jdbc.Driver
-outputChangeLogFile: src/main/resources/liquibase-outputChangeLog.xml
-url: jdbc:mysql://localhost:3306/marketplace
-username: root
-password: :A2y,ZGjE3YrN6c%

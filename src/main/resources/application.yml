@@ -2,7 +2,7 @@ spring:
   datasource:
     username: root
     password: ':A2y,ZGjE3YrN6c%'
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/marketplace
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/marketplace?useUnicode=TRUE&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=FALSE
   jpa:
     database: mysql
     hibernate:
@@ -10,4 +10,7 @@ spring:
   banner:
     location: "classpath:custom-banner.txt"
   liquibase:
-    enabled: false
+#    changeLogFile: classpath:dbchangelog.xml
+    change-log: classpath:dbchangelog.xml
+    dropFirst: true
+    enabled: true
