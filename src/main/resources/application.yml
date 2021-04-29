@@ -1,3 +1,6 @@
+server:
+  servlet:
+    context-path: /marketplace
 spring:
   datasource:
     username: root
@@ -12,5 +15,5 @@ spring:
   liquibase:
 #    changeLogFile: classpath:dbchangelog.xml
     change-log: classpath:dbchangelog.xml
-    dropFirst: true
+    dropFirst: false
     enabled: true

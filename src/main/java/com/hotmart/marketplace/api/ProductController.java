@@ -5,6 +5,7 @@ import com.hotmart.marketplace.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,9 +50,10 @@ public class ProductController {
         service.delete(id);
     }
 
-    public Page<Product> findAll(
-            @RequestParam(name = "page", value = "1") int page,
-            @RequestParam(name = "page-size", value = "20") int pageSize) {
-        return service.findAll(page, pageSize);
+    @GetMapping
+    public ResponseEntity<Page<Product>> findAll(
+            @RequestParam(name = "page", defaultValue = "1", required = false) int page,
+            @RequestParam(name = "page-size", defaultValue = "20", required = false) int pageSize) {
+        return ResponseEntity.ok(service.findAll(page, pageSize));
     }
 }
