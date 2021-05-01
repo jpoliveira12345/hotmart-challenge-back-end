@@ -6,6 +6,9 @@ spring:
     username: root
     password: ':A2y,ZGjE3YrN6c%'
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/marketplace?useUnicode=TRUE&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=FALSE
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
   jpa:
     database: mysql
     hibernate:

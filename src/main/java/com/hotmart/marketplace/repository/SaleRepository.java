@@ -1,6 +1,6 @@
 package com.hotmart.marketplace.repository;
 
-import com.hotmart.marketplace.model.Sale;
+import com.hotmart.marketplace.model.entity.Sale;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

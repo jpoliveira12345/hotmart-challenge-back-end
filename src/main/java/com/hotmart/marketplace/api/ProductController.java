@@ -1,10 +1,14 @@
 package com.hotmart.marketplace.api;
 
-import com.hotmart.marketplace.model.Product;
+import com.hotmart.marketplace.model.entity.Product;
+import com.hotmart.marketplace.model.request.ProductReq;
+import com.hotmart.marketplace.model.response.ProductRes;
 import com.hotmart.marketplace.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,43 +21,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
 @RequestMapping("/products")
+@SuppressWarnings("unused")
 public class ProductController {
     @Autowired
     private final ProductService service;
 
+    @Autowired
+    private final ModelMapper mapper;
+
     @PostMapping
-    public List<Product> create(
-            @RequestBody List<Product> prods) {
-        return service.create(prods);
+    public ResponseEntity<List<ProductRes>> create(
+            @RequestBody List<ProductReq> prodReqList) {
+        var serviceResponse = service.create(prodReqList);
+        var response = serviceResponse.stream().map( e -> mapper.map(e, ProductRes.class)).collect(Collectors.toList());
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public Product read(
+    public ResponseEntity<ProductRes> read(
             @PathVariable(name = "id") Long idProd) {
-        return service.read(idProd);
+        var entity = service.read(idProd);
+        var dto = mapper.map(entity, ProductRes.class);
+        return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/{id}")
-    public Product update(
+    public ResponseEntity<Product> update(
             @PathVariable(name = "id") Long id,
-            @RequestBody Product prod) {
-        return service.update(id, prod);
+            @RequestBody ProductReq prodReq) {
+        var prod = mapper.map(prodReq, Product.class);
+        return new ResponseEntity<>(service.update(id, prod), HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(
+    public ResponseEntity<Object> delete(
             @PathVariable(name = "id") Long id) {
         service.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping
-    public ResponseEntity<Page<Product>> findAll(
-            @RequestParam(name = "page", defaultValue = "1", required = false) int page,
-            @RequestParam(name = "page-size", defaultValue = "20", required = false) int pageSize) {
-        return ResponseEntity.ok(service.findAll(page, pageSize));
+    public ResponseEntity<PageImpl<ProductRes>> findAll(
+            @RequestParam(name = "page", defaultValue = "1", required = false) final Integer pageNumber,
+            @RequestParam(name = "page-size", defaultValue = "20", required = false) final Integer pageSize) {
+        var page = service.findAll(pageNumber, pageSize);
+        var products = page.get().map( e -> mapper.map( e, ProductRes.class)).collect(Collectors.toList());
+        return ResponseEntity.ok(new PageImpl<>(products));
     }
 }
