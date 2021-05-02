@@ -6,7 +6,9 @@ import com.hotmart.marketplace.model.entity.Product;
 import com.hotmart.marketplace.model.request.ProductReq;
 import com.hotmart.marketplace.repository.CategoryRepository;
 import com.hotmart.marketplace.repository.ProductRepository;
+import com.hotmart.marketplace.repository.SaleRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,11 +17,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class ProductService {
@@ -29,6 +35,9 @@ public class ProductService {
 
     @Autowired
     private final CategoryRepository categoryRepository;
+
+    @Autowired
+    private final SaleRepository saleRepository;
 
     @Autowired
     private final ModelMapper mapper;
@@ -77,6 +86,11 @@ public class ProductService {
 
         var pageable = PageRequest.of(page, pageSize, Sort.by("name").ascending());
         return repository.findAll(pageable);
+    }
+
+    public BigDecimal averageScoreInMonths(@NotNull final Long idProd, @NotNull final Integer months){
+        var monthsBefore = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).minusMonths(months);
+        return saleRepository.findSaleScoreAverageScoreBefore(idProd, monthsBefore).orElse(BigDecimal.ZERO);
     }
 
 }

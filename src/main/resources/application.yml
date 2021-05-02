@@ -11,6 +11,7 @@ spring:
       fail-on-empty-beans: false
   jpa:
     database: mysql
+    show-sql: false
     hibernate:
       ddl-auto: update
   banner:

@@ -18,7 +18,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -36,18 +38,25 @@ public class Sale implements Serializable {
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "ID_PRODUCT")
+        @NotNull
         Product product;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "ID_PURCHASER")
+        @NotNull
         Purchaser purchaser;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "ID_SELLER")
+        @NotNull
         Seller seller;
 
         @Column(name = "SCORE")
         @Min(0)
         @Max(5)
         Integer score;
+
+        @NotNull
+        @Column(name = "CREATED_AD")
+        LocalDateTime createdAt;
 }

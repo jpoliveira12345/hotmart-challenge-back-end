@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +55,7 @@ public class SaleService {
             sale.setPurchaser(purchaser);
             sale.setProduct(product);
             sale.setSeller(seller);
+            sale.setCreatedAt(LocalDateTime.now());
             savedSales.add(repository.save(sale));
         }
         return savedSales;
