@@ -17,4 +17,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
                     " WHERE s.product.id = :idProd" +
                     "   AND s.createdAt > :monthsBefore")
     Optional<BigDecimal> findSaleScoreAverageScoreBefore(Long idProd, LocalDateTime monthsBefore);
+
+    Long countByProductId(Long idProduct);
+
 }

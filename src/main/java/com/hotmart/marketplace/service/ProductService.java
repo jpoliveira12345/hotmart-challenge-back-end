@@ -18,9 +18,11 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +55,7 @@ public class ProductService {
             var prod = mapper.map( p, Product.class);
 
             prod.setCategory(category);
-            prod.setCreatedAt(LocalDate.now());
+            prod.setCreatedAt(LocalDateTime.now());
             savedProducts.add(repository.save(prod));
         }
         return savedProducts;
@@ -91,6 +93,18 @@ public class ProductService {
     public BigDecimal averageScoreInMonths(@NotNull final Long idProd, @NotNull final Integer months){
         var monthsBefore = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).minusMonths(months);
         return saleRepository.findSaleScoreAverageScoreBefore(idProd, monthsBefore).orElse(BigDecimal.ZERO);
+    }
+
+    public BigDecimal sellsByDay(@NotNull final Product prod){
+        var createdAt = prod.getCreatedAt().toLocalDate();
+        var prodAgeDays = new BigDecimal(Period.between( LocalDate.now() , createdAt ).getDays());
+        var nSales = new BigDecimal(saleRepository.countByProductId(prod.getId()));
+
+        if(prodAgeDays.equals(BigDecimal.ZERO)){
+            return BigDecimal.ZERO;
+        }
+
+        return nSales.divide(prodAgeDays, RoundingMode.HALF_EVEN);
     }
 
 }

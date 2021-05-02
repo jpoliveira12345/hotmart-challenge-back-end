@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -52,7 +52,7 @@ public class Product implements Serializable {
 
         @NotNull
         @Column(name = "CREATED_AT")
-        LocalDate createdAt;
+        LocalDateTime createdAt;
 
         @Column(name = "SCORE")
         @Digits(integer = 10, fraction = 10)
