@@ -17,7 +17,6 @@ spring:
   banner:
     location: "classpath:custom-banner.txt"
   liquibase:
-#    changeLogFile: classpath:dbchangelog.xml
     change-log: classpath:dbchangelog.xml
     dropFirst: false
     enabled: true
