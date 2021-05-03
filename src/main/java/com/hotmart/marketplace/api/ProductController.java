@@ -2,6 +2,8 @@ package com.hotmart.marketplace.api;
 
 import com.hotmart.marketplace.model.entity.Product;
 import com.hotmart.marketplace.model.request.ProductReq;
+import com.hotmart.marketplace.model.response.MarketPlacePage;
+import com.hotmart.marketplace.model.response.ProductDataRes;
 import com.hotmart.marketplace.model.response.ProductRes;
 import com.hotmart.marketplace.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -72,5 +74,11 @@ public class ProductController {
         var page = service.findAll(pageNumber, pageSize);
         var products = page.get().map( e -> mapper.map( e, ProductRes.class)).collect(Collectors.toList());
         return ResponseEntity.ok(new PageImpl<>(products));
+    }
+
+    @GetMapping("/ranking")
+    public ResponseEntity<MarketPlacePage<ProductDataRes>> findAllRanked(
+            @RequestParam(name = "q", required = false) final String q) {
+        return ResponseEntity.ok(service.findAllRanked(q));
     }
 }
