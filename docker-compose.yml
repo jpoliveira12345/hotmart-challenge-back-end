@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ":A2y,ZGjE3YrN6c%"
+      MYSQL_DATABASE: "marketplace"
+      MYSQL_ROOT_HOST: '%'
+
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/jpveira/docker/docker-volumes/mysql:/var/lib/mysql
+    networks:
+      - mysql-network
+
+networks:
+  mysql-network:
+    driver: bridge

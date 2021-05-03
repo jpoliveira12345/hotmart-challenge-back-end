@@ -1,1 +1,22 @@
-
+server:
+  servlet:
+    context-path: /marketplace
+spring:
+  datasource:
+    username: root
+    password: ':A2y,ZGjE3YrN6c%'
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/marketplace?useUnicode=TRUE&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=FALSE
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  jpa:
+    database: mysql
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+  banner:
+    location: "classpath:custom-banner.txt"
+  liquibase:
+    change-log: classpath:dbchangelog.xml
+    dropFirst: false
+    enabled: true
